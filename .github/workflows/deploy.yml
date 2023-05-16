@@ -1,4 +1,4 @@
-name: Strapi/Next deploy pipeline
+name: Strapi deploy pipeline
 on:
   push:
     tags:
@@ -11,13 +11,13 @@ on:
 jobs:
   conditions:
     name: Check for cluster conditions
-    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions-inhouse.yml@stable
+    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions.yml@stable
 
   deploy-dev:
     name: deploy strapi to dev
     if: needs.conditions.outputs.dev == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@beta
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@beta
     with:
       directory: /
       cluster: tkg-innov-dev
@@ -33,7 +33,7 @@ jobs:
     name: deploy strapi to staging
     if: needs.conditions.outputs.staging == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
     with:
       directory: /
       cluster: tkg-innov-staging
@@ -49,7 +49,7 @@ jobs:
     name: deploy strapi to prod
     if: needs.conditions.outputs.prod == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
     with:
       directory: /
       cluster: tkg-innov-prod
