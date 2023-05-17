@@ -1,4 +1,4 @@
-name: Strapi deploy pipeline
+name: Build Strapi for testing and then Deploy pipeline
 on:
   push:
     tags:
