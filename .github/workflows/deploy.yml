@@ -9,8 +9,19 @@ on:
       - master
 
 jobs:
+  buildstrapi:
+    name: build Strapi before deploy
+    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli.yml@stable
+    with:
+      directory: ./
+      debug: --debug
+    secrets:
+      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
+    permissions: write-all
+
   conditions:
     name: Check for cluster conditions
+    needs: [buildstrapi]
     uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions.yml@stable
 
   deploy-dev:
