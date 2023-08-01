@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pitne_fontankies",
+  "info": {
+    "singularName": "pitne-fontanky",
+    "pluralName": "pitne-fontankies",
+    "displayName": "Pitné fontánky"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nazov": {
+      "type": "string"
+    }
+  }
+}
