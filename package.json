@@ -23,6 +23,7 @@
     "@strapi/plugin-i18n": "4.10.1",
     "@strapi/plugin-users-permissions": "4.10.1",
     "@strapi/strapi": "4.10.1",
+    "better-sqlite3": "^8.5.0",
     "patch-package": "^6.5.1",
     "pg": "^8.10.0",
     "postinstall-postinstall": "^2.1.0",
@@ -39,5 +40,8 @@
     "npm": ">=6.0.0",
     "yarn": "1.22"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "volta": {
+    "node": "16.20.1"
+  }
 }
