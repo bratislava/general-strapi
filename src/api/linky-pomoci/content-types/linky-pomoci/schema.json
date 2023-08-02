@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "linky_pomocis",
+  "info": {
+    "singularName": "linky-pomoci",
+    "pluralName": "linky-pomocis",
+    "displayName": "Linky pomoci"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nazov": {
+      "type": "string"
+    },
+    "Prevadzkovatel": {
+      "type": "string"
+    },
+    "Popis": {
+      "type": "text"
+    },
+    "Prevadzka": {
+      "type": "text"
+    },
+    "Telefon": {
+      "type": "biginteger"
+    },
+    "Email": {
+      "type": "email"
+    },
+    "Cena": {
+      "type": "string"
+    }
+  }
+}
