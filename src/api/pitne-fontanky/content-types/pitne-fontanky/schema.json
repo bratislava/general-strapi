@@ -4,7 +4,8 @@
   "info": {
     "singularName": "pitne-fontanky",
     "pluralName": "pitne-fontankies",
-    "displayName": "Pitné fontánky"
+    "displayName": "Pitné fontánky",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,6 +14,35 @@
   "attributes": {
     "Nazov": {
       "type": "string"
+    },
+    "Typ": {
+      "type": "string"
+    },
+    "Rok_spustenia": {
+      "type": "string"
+    },
+    "Stav": {
+      "type": "string"
+    },
+    "Spravca": {
+      "type": "string"
+    },
+    "Fotky": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "Latitude": {
+      "type": "float"
+    },
+    "Longitude": {
+      "type": "float"
     }
   }
 }

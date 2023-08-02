@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "fixpoints",
+  "info": {
+    "singularName": "fixpointy",
+    "pluralName": "fixpoints",
+    "displayName": "Fixpointy"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nazov": {
+      "type": "string"
+    },
+    "Adresa": {
+      "type": "string"
+    },
+    "Latitude": {
+      "type": "float"
+    },
+    "Longitude": {
+      "type": "float"
+    }
+  }
+}
