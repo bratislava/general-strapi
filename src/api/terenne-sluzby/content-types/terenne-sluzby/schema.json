@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "terenne_sluzbies",
+  "info": {
+    "singularName": "terenne-sluzby",
+    "pluralName": "terenne-sluzbies",
+    "displayName": "Terenne sluzby",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nazov": {
+      "type": "string"
+    },
+    "Poskytovatel": {
+      "type": "string"
+    },
+    "Sluzba": {
+      "type": "text"
+    },
+    "Lokalita_posobnosti": {
+      "type": "text"
+    },
+    "Telefon": {
+      "type": "biginteger"
+    },
+    "Dostupnost": {
+      "type": "text"
+    },
+    "Cena_kapacita": {
+      "type": "text"
+    }
+  }
+}
