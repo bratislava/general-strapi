@@ -1,0 +1,92 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sluzby_pre_ludi_bez_domovas",
+  "info": {
+    "singularName": "sluzby-pre-ludi-bez-domova",
+    "pluralName": "sluzby-pre-ludi-bez-domovas",
+    "displayName": "Sluzby pre ludi bez domova",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Nazov": {
+      "type": "string"
+    },
+    "Tagy": {
+      "type": "text"
+    },
+    "Poskytovatel": {
+      "type": "text"
+    },
+    "Popis": {
+      "type": "text"
+    },
+    "Cas": {
+      "type": "text"
+    },
+    "Adresa": {
+      "type": "string"
+    },
+    "Mestska_cast": {
+      "type": "string"
+    },
+    "Navigacia": {
+      "type": "text"
+    },
+    "Telefon": {
+      "type": "biginteger"
+    },
+    "Telefon_popis": {
+      "type": "text"
+    },
+    "Socialne_pravne_poradenstvo": {
+      "type": "text"
+    },
+    "Hygiena_osatenie": {
+      "type": "text"
+    },
+    "Noclah_ubytovanie": {
+      "type": "text"
+    },
+    "Strava": {
+      "type": "text"
+    },
+    "Zdravotne_osetrenie": {
+      "type": "text"
+    },
+    "Kultura": {
+      "type": "text"
+    },
+    "Kontaktne_centrum": {
+      "type": "text"
+    },
+    "Email": {
+      "type": "email"
+    },
+    "Web": {
+      "type": "string"
+    },
+    "Navigovat": {
+      "type": "string"
+    },
+    "Subor": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": true
+    },
+    "Latitude": {
+      "type": "float"
+    },
+    "Longitude": {
+      "type": "float"
+    }
+  }
+}
