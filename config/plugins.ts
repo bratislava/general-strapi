@@ -3,6 +3,9 @@ export default {
     config: {
       defaultLimit: 100,
       playgroundAlways: true,
+      apolloServer: {
+        introspection: true,
+      },
     },
   },
 };
