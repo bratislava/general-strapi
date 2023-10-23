@@ -19,11 +19,11 @@
     "eslint-scope": "^7.1.1"
   },
   "dependencies": {
-    "@strapi/plugin-graphql": "4.10.1",
-    "@strapi/plugin-i18n": "4.10.1",
-    "@strapi/plugin-users-permissions": "4.10.1",
-    "@strapi/strapi": "4.10.1",
-    "better-sqlite3": "^8.5.0",
+    "@strapi/plugin-graphql": "4.10.8",
+    "@strapi/plugin-i18n": "4.10.8",
+    "@strapi/plugin-users-permissions": "4.10.8",
+    "@strapi/strapi": "4.10.8",
+    "better-sqlite3": "^9.0.0",
     "patch-package": "^6.5.1",
     "pg": "^8.10.0",
     "postinstall-postinstall": "^2.1.0",
@@ -36,12 +36,12 @@
     "uuid": "61130046-63b5-40a0-a617-713763ba3913"
   },
   "engines": {
-    "node": "16.x.x",
-    "npm": ">=6.0.0",
+    "node": ">=18.x.x",
+    "npm": ">=9.8.1",
     "yarn": "1.22"
   },
   "license": "MIT",
   "volta": {
-    "node": "16.20.1"
+    "node": ">=18.x.x"
   }
 }
