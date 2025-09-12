@@ -11,7 +11,7 @@ on:
 jobs:
   buildstrapi:
     name: build Strapi before deploy
-    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: ./
       debug: --debug
@@ -28,7 +28,7 @@ jobs:
     name: deploy strapi to dev
     if: needs.conditions.outputs.dev == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@beta
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@beta
     with:
       directory: ./
       cluster: tkg-innov-dev
@@ -44,7 +44,7 @@ jobs:
     name: deploy strapi to staging
     if: needs.conditions.outputs.staging == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: ./
       cluster: tkg-innov-staging
@@ -60,7 +60,7 @@ jobs:
     name: deploy strapi to prod
     if: needs.conditions.outputs.prod == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
     with:
       directory: ./
       cluster: tkg-innov-prod
