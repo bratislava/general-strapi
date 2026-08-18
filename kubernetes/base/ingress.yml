@@ -9,6 +9,10 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt
     cert-manager.io/issue-temporary-certificate: 'true'
 spec:
+  # Required, not optional: the NGINX Inc controller on these clusters only picks up
+  # ingresses whose class matches, so a classless ingress is served by nothing.
+  # Production overrides this to avi-lb, see envs/Prod/kustomization.yml.
+  ingressClassName: nginx
   tls:
     - hosts:
         - ${BRATISKA_HOSTNAME}
