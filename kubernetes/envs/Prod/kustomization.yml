@@ -1,17 +1,6 @@
 resources:
   - ../../base
   - secrets/minio.secret.yml
-
-# Production serves general-strapi.bratislava.sk through AVI (10.10.30.69); nginx there
-# listens on a different VIP (10.10.30.80), so moving the class would also need a DNS change.
-patches:
-  - target:
-      kind: Ingress
-    patch: |-
-      - op: replace
-        path: /spec/ingressClassName
-        value: avi-lb
-
 generatorOptions:
   disableNameSuffixHash: true
 configMapGenerator:
