@@ -11,8 +11,12 @@ on:
 jobs:
   buildstrapi:
     name: build Strapi before deploy
-    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli-inhouse.yml@stable
+    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli-inhouse.yml@v2.3.2
     with:
+      # v2.3.2 parses runs-on with fromJSON and defaults to
+      # ["self-hosted", "Linux", "X64", "bratislava"]; our runners only carry
+      # the "bratislava" label, so the default never matches and jobs queue forever.
+      runs-on: '["bratislava"]'
       directory: ./
       debug: --debug
     secrets:
@@ -22,19 +26,19 @@ jobs:
   conditions:
     name: Check for cluster conditions
     needs: [buildstrapi]
-    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions.yml@stable
+    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions.yml@v2.3.2
 
   deploy-dev:
     name: deploy strapi to dev
     if: needs.conditions.outputs.dev == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@beta
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.3.2
     with:
+      runs-on: '["bratislava"]'
       directory: ./
-      cluster: tkg-innov-dev
-      url: https://tkg.dev.bratislava.sk
+      cluster: development
+      url: https://dev.tkgis.bratislava.sk:6443
       debug: --debug
-      version: beta
     secrets:
       service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
       registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
@@ -44,11 +48,12 @@ jobs:
     name: deploy strapi to staging
     if: needs.conditions.outputs.staging == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.3.2
     with:
+      runs-on: '["bratislava"]'
       directory: ./
-      cluster: tkg-innov-staging
-      url: https://tkg.staging.bratislava.sk
+      cluster: staging
+      url: https://stage.tkgis.bratislava.sk:6443
       debug: --debug
       flag: --staging
     secrets:
@@ -60,11 +65,12 @@ jobs:
     name: deploy strapi to prod
     if: needs.conditions.outputs.prod == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@stable
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.3.2
     with:
+      runs-on: '["bratislava"]'
       directory: ./
-      cluster: tkg-innov-prod
-      url: https://tkg.bratislava.sk
+      cluster: production
+      url: https://prod.tkgis.bratislava.sk:6443
       flag: --production
     secrets:
       service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
