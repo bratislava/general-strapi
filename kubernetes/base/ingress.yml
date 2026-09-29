@@ -7,8 +7,14 @@ metadata:
     service: app
   annotations:
     cert-manager.io/cluster-issuer: cloudflare-dns01
+    nginx.org/client-max-body-size: '0'
+    nginx.org/location-snippets: |
+      proxy_request_buffering off;
     cert-manager.io/issue-temporary-certificate: 'true'
 spec:
+  # Required, not optional: the NGINX Inc controller on these clusters only picks up
+  # ingresses whose class matches, so a classless ingress is served by nothing.
+  ingressClassName: nginx
   tls:
     - hosts:
         - ${BRATISKA_HOSTNAME}
