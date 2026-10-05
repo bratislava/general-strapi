@@ -11,7 +11,7 @@ on:
 jobs:
   buildstrapi:
     name: build Strapi before deploy
-    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli-inhouse.yml@v2.3.2
+    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli-inhouse.yml@v2.4.0
     with:
       # v2.3.2 parses runs-on with fromJSON and defaults to
       # ["self-hosted", "Linux", "X64", "bratislava"]; our runners only carry
@@ -26,13 +26,13 @@ jobs:
   conditions:
     name: Check for cluster conditions
     needs: [buildstrapi]
-    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions.yml@v2.3.2
+    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions.yml@v2.4.0
 
   deploy-dev:
     name: deploy strapi to dev
     if: needs.conditions.outputs.dev == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.3.2
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.4.0
     with:
       runs-on: '["bratislava"]'
       directory: ./
@@ -48,7 +48,7 @@ jobs:
     name: deploy strapi to staging
     if: needs.conditions.outputs.staging == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.3.2
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.4.0
     with:
       runs-on: '["bratislava"]'
       directory: ./
@@ -65,7 +65,7 @@ jobs:
     name: deploy strapi to prod
     if: needs.conditions.outputs.prod == 'true'
     needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.3.2
+    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.4.0
     with:
       runs-on: '["bratislava"]'
       directory: ./
