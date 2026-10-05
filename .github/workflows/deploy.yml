@@ -13,10 +13,6 @@ jobs:
     name: build Strapi before deploy
     uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli-inhouse.yml@v2.4.0
     with:
-      # v2.3.2 parses runs-on with fromJSON and defaults to
-      # ["self-hosted", "Linux", "X64", "bratislava"]; our runners only carry
-      # the "bratislava" label, so the default never matches and jobs queue forever.
-      runs-on: '["bratislava"]'
       directory: ./
       debug: --debug
     secrets:
@@ -34,7 +30,6 @@ jobs:
     needs: [conditions]
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.4.0
     with:
-      runs-on: '["bratislava"]'
       directory: ./
       cluster: development
       url: https://dev.tkgis.bratislava.sk:6443
@@ -50,7 +45,6 @@ jobs:
     needs: [conditions]
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.4.0
     with:
-      runs-on: '["bratislava"]'
       directory: ./
       cluster: staging
       url: https://stage.tkgis.bratislava.sk:6443
@@ -67,7 +61,6 @@ jobs:
     needs: [conditions]
     uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.4.0
     with:
-      runs-on: '["bratislava"]'
       directory: ./
       cluster: production
       url: https://prod.tkgis.bratislava.sk:6443
