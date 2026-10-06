@@ -1,71 +1,69 @@
-name: Build Strapi for testing and then Deploy pipeline
+name: Strapi deploy pipeline
 on:
   push:
     tags:
-      - 'dev**'
-      - 'staging**'
-      - 'prod**'
+      - "dev**"
+      - "staging**"
+      - "prod**"
     branches:
       - master
 
+permissions:
+  contents: read
+
 jobs:
-  buildstrapi:
-    name: build Strapi before deploy
-    uses: bratislava/github-actions/.github/workflows/build-with-bratiska-cli-inhouse.yml@v2.4.0
+  resolve:
+    name: Resolve Environment
+    runs-on: bratislava
+    outputs:
+      cluster: ${{ steps.resolve.outputs.cluster }}
+    steps:
+      - name: Map ref to environment
+        id: resolve
+        run: |
+          REF="$GITHUB_REF"
+
+          if [[ "$REF" == "refs/heads/master" ]]; then
+            CLUSTER="staging"
+          elif [[ "$REF" == refs/tags/* ]]; then
+            TAG="${REF#refs/tags/}"
+            case "$TAG" in
+              dev*)     CLUSTER="development" ;;
+              staging*) CLUSTER="staging" ;;
+              prod*)    CLUSTER="production" ;;
+              *)
+                echo "::error::Unable to determine environment from tag: $TAG"
+                exit 1
+                ;;
+            esac
+          else
+            echo "::error::Unable to determine environment from ref: $REF"
+            exit 1
+          fi
+
+          echo "cluster=$CLUSTER" >> "$GITHUB_OUTPUT"
+
+          {
+            echo "## Pipeline info :rocket:"
+            echo ":arrow_right: Ref: **$REF**"
+            echo ":arrow_right: Cluster: **$CLUSTER**"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  build:
+    name: Build Strapi
+    needs: resolve
+    uses: ./.github/workflows/build-single-image.yml
+    secrets: inherit
     with:
       directory: ./
-      debug: --debug
-    secrets:
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-    permissions: write-all
+      image: harbor.bratislava.sk/standalone/general-strapi
+      cluster: ${{ needs.resolve.outputs.cluster }}
 
-  conditions:
-    name: Check for cluster conditions
-    needs: [buildstrapi]
-    uses: bratislava/github-actions/.github/workflows/cluster-deploy-conditions.yml@v2.4.0
-
-  deploy-dev:
-    name: deploy strapi to dev
-    if: needs.conditions.outputs.dev == 'true'
-    needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.4.0
+  deploy:
+    name: Strapi
+    needs: [resolve, build]
+    uses: bratislava/github-actions/.github/workflows/trigger-infra-deploy.yml@v3.0.1
+    secrets: inherit
     with:
-      directory: ./
-      cluster: development
-      url: https://dev.tkgis.bratislava.sk:6443
-      debug: --debug
-    secrets:
-      service-account: ${{ secrets.DEV_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-
-  deploy-staging:
-    name: deploy strapi to staging
-    if: needs.conditions.outputs.staging == 'true'
-    needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.4.0
-    with:
-      directory: ./
-      cluster: staging
-      url: https://stage.tkgis.bratislava.sk:6443
-      debug: --debug
-      flag: --staging
-    secrets:
-      service-account: ${{ secrets.STAGING_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
-
-  deploy-prod:
-    name: deploy strapi to prod
-    if: needs.conditions.outputs.prod == 'true'
-    needs: [conditions]
-    uses: bratislava/github-actions/.github/workflows/deploy-with-bratiska-cli-inhouse.yml@v2.4.0
-    with:
-      directory: ./
-      cluster: production
-      url: https://prod.tkgis.bratislava.sk:6443
-      flag: --production
-    secrets:
-      service-account: ${{ secrets.PROD_STANDALONE_TOKEN }}
-      registry-pass: ${{ secrets.HARBOR_REGISTRY_PASSWORD }}
-      sentry-token: ${{ secrets.SENTRY_AUTH_TOKEN }}
+      cluster: ${{ needs.resolve.outputs.cluster }}
+      app: general-strapi
