@@ -1,0 +1,20 @@
+name: Pull Request
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  # Builds the real production target without pushing, so a PR fails on
+  # anything that would break the deploy build.
+  build:
+    name: Build Strapi
+    uses: ./.github/workflows/build-single-image.yml
+    secrets: inherit
+    with:
+      directory: ./
+      image: harbor.bratislava.sk/standalone/general-strapi
