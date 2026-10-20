@@ -4,12 +4,14 @@ Strapi comes with a full featured [Command Line Interface](https://docs.strapi.i
 
 ## 🧰 Setup
 
-Before you start, install all dependencies and create `.env.local` file which is .gitignored used for local dev
+Before you start, install all dependencies and create `.env.local` file which is .gitignored used for local dev. This project uses Node.js 20 and npm >= 11.10.0 (pinned via `packageManager` in `package.json`); if your npm is older, run `npm install -g npm@11.21.0`.
 
 ```
-yarn
+npm ci
 cp .env.example .env.local
 ```
+
+`.npmrc` sets `min-release-age=7`, so npm will not resolve package versions published less than 7 days ago.
 
 You need postgres running locally (with correct credentials & databse available). The default setup is below, you can override any of the variables by passing them in you `.env.local` file. The easiest way to get a postgres db with the right credentials up&running is via `docker-compose.yml` file in the root fo this repo (check the root README).
 
@@ -30,7 +32,7 @@ We use [patch-package](https://github.com/ds300/patch-package) to slightly chang
 
 When updating these packages, please run also `patch-package`:
 ```
-yarn patch-package @strapi/plugin-users-permissions
+npx patch-package @strapi/plugin-users-permissions
 ```
 
 ## Deployment
