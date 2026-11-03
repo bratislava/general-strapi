@@ -24,3 +24,4 @@ build/
 data/
 # markdown files
 **/*.md
+.strapi
