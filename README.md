@@ -7,7 +7,7 @@ Strapi comes with a full featured [Command Line Interface](https://docs.strapi.i
 Before you start, install all dependencies and create `.env.local` file which is .gitignored used for local dev
 
 ```
-yarn
+npm ci
 cp .env.example .env.local
 ```
 
@@ -23,15 +23,6 @@ It's recommended that you don't start from an empty database, but instead seed w
 
 We may provide a db dump as part of the project in the future - for now please contact the BA Innovations Team if you need it.
 
-
-## Patches
-
-We use [patch-package](https://github.com/ds300/patch-package) to slightly change the behaviour of some packages. See the `patches` folder for more details.
-
-When updating these packages, please run also `patch-package`:
-```
-yarn patch-package @strapi/plugin-users-permissions
-```
 
 ## Deployment
 
