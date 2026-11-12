@@ -43,6 +43,9 @@ FROM app-base AS prod
 COPY --chown=node:node --from=build /build/app/favicon.ico /build/app/package.json /build/app/package-lock.json /build/app/tsconfig.json ./
 COPY --chown=node:node --from=install-prod /build/node_modules ./node_modules
 COPY --chown=node:node --from=build /build/app/config ./config
+# Database migrations are read from `<cwd>/database/migrations` at startup, they are not part of the build output.
+# Keep the directory even when empty: on a read-only rootfs Strapi fails to start if it has to create it.
+COPY --chown=node:node --from=build /build/app/database ./database
 COPY --chown=node:node --from=build /build/app/public ./public
 COPY --chown=node:node --from=build /build/app/dist ./dist
 CMD [ "strapi", "start" ]
